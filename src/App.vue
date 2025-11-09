@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import Sidebar from '@/components/Sidebar.vue'
 
+import { ref } from 'vue'
 const name = ref('')
 const email = ref('')
 const message = ref('')
 
 const submitForm = () => {
+  // Prüfen: Alle Felder gefüllt?
   if (!name.value || !email.value || !message.value) {
     alert('Bitte füllen Sie alle Felder aus.')
     return
   }
 
+  // Erfolg
   console.log('Formular gesendet!')
   console.log('Name:', name.value)
   console.log('E-Mail:', email.value)
@@ -24,54 +27,73 @@ const submitForm = () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100 p-8">
-    <h1 class="text-4xl font-bold text-center mb-8">Kontaktformular</h1>
+  <div class="flex min-h-screen bg-gray-50">
+    <!-- Sidebar links -->
+    <Sidebar />
 
-    <form @submit.prevent="submitForm" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
-      <div class="mb-4">
+    <!-- Hauptbereich rechts -->
+    <main class="flex-1 p-8">
+      <h1 class="text-3xl font-bold mb-6 text-gray-800">Willkommen im Dashboard</h1>
+      <p class="text-gray-600 mb-8">Wähle einen Menüpunkt in der Sidebar aus.</p>
+
+      <!-- Dein Kontaktformular kommt später hier rein -->
+      <div class="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Kontaktieren Sie uns</h2>
+
+    <form @submit.prevent="submitForm" class="space-y-5">
+      <!-- Name -->
+      <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
         <input
           v-model="name"
           type="text"
-          class="w-full border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500"
           placeholder="Ihr Name"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
       </div>
 
-      <div class="mb-4">
+      <!-- E-Mail -->
+      <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
         <input
           v-model="email"
           type="email"
-          class="w-full border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500"
           placeholder="Ihre E-Mail"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
         />
       </div>
 
-      <div class="mb-4">
+      <!-- Nachricht -->
+      <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Nachricht</label>
         <textarea
           v-model="message"
-          class="w-full border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500 resize-none"
-          rows="4"
-          placeholder="Ihre Nachricht"
+          rows="5"
+          placeholder="Ihre Nachricht..."
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition"
         ></textarea>
       </div>
 
+      <!-- Button -->
       <button
         type="submit"
-        class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition font-medium"
+        class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-md"
       >
-        Senden
+        Absenden
       </button>
     </form>
 
-    <!-- LIVE-VORSCHAU -->
-    <div class="mt-8 bg-white p-6 rounded-lg shadow max-w-md mx-auto">
-      <h2 class="text-2xl font-bold mb-4">Eingereichte Daten</h2>
-      <p><strong>Name:</strong> {{ name || '-' }}</p>
-      <p><strong>E-Mail:</strong> {{ email || '-' }}</p>
-      <p><strong>Nachricht:</strong> {{ message || '-' }}</p>
+    <!-- Live-Vorschau -->
+    <div class="mt-8 p-5 bg-gray-50 rounded-lg border border-gray-200">
+      <h3 class="text-lg font-semibold text-gray-700 mb-3">Live-Vorschau:</h3>
+      <p><strong>Name:</strong> {{ name || '—' }}</p>
+      <p><strong>E-Mail:</strong> {{ email || '—' }}</p>
+      <p><strong>Nachricht:</strong> {{ message || '—' }}</p>
     </div>
+  </div>
+    </main>
   </div>
 </template>
